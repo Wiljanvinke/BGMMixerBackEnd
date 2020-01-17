@@ -1,6 +1,7 @@
 package com.example.bgmmixer.api;
 
 import com.example.bgmmixer.model.File;
+import com.example.bgmmixer.model.Song;
 import com.example.bgmmixer.payload.UploadFileResponse;
 import com.example.bgmmixer.service.FileService;
 import com.example.bgmmixer.service.SongService;
@@ -23,6 +24,22 @@ public class SongEndpoint {
     @Autowired
     private FileService fileService;
 
+    @GetMapping("/downloadFile/{fileId}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable long fileId) {
+        // Load file from database
+        File file = fileService.getFile(fileId);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(file.getFileType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
+                .body(new ByteArrayResource(file.getData()));
+    }
+
+    @GetMapping("/song/{songId}")
+    public Song getSong(@PathVariable long songId){
+        return songService.findSongById(songId);
+    }
+
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
         System.out.println("Received");
@@ -35,17 +52,6 @@ public class SongEndpoint {
 
         return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
                 file.getContentType(), file.getSize());
-    }
-
-    @GetMapping("/downloadFile/{fileId}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable long fileId) {
-        // Load file from database
-        File file = fileService.getFile(fileId);
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(file.getFileType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
-                .body(new ByteArrayResource(file.getData()));
     }
 
 
