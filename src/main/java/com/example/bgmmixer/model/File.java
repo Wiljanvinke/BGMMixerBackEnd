@@ -3,6 +3,8 @@ package com.example.bgmmixer.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class File {
@@ -12,6 +14,9 @@ public class File {
 
     private String fileName;
     private String fileType;
+
+    @OneToMany(mappedBy = "file")
+    private List<Song> song;
 
     @Lob
     private byte[] data;
