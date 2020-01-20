@@ -61,5 +61,15 @@ public class SongEndpoint {
                 file.getContentType(), file.getSize());
     }
 
+    @PostMapping("/songs")
+    public Song newSong(@RequestBody Song newSong){
+        return songService.saveSong(newSong);
+    }
+
+    @PostMapping("/songs/{fileID}")
+    public Song newSong(@RequestBody Song newSong, @PathVariable long fileID){
+        return songService.saveSong(newSong, fileID);
+    }
+
 
 }

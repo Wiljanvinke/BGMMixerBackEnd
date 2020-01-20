@@ -18,6 +18,10 @@ public class Song {
     @OneToMany(mappedBy = "song")
     private List<Stage> stages;
 
+    public Song(){
+
+    }
+
     public Song(String name, File file){
         this.name = name;
         this.file = file;
