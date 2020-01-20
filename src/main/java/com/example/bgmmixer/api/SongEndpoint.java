@@ -71,5 +71,10 @@ public class SongEndpoint {
         return songService.saveSong(newSong, fileID);
     }
 
+    @DeleteMapping("/songs/{songID}")
+    public void deleteSong(@PathVariable long songID){
+        songService.deleteSong(songID);
+    }
+
 
 }
