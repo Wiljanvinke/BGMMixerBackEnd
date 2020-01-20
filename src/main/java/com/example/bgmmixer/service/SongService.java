@@ -22,4 +22,9 @@ public class SongService {
         return song;
     }
 
+    public Iterable<Song> findAllSongs(){
+        return songRepository.findAll();
+
+    }
+
 }

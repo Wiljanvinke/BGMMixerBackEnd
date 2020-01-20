@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.List;
+
 
 @RestController
 public class SongEndpoint {
@@ -35,9 +37,14 @@ public class SongEndpoint {
                 .body(new ByteArrayResource(file.getData()));
     }
 
-    @GetMapping("/song/{songId}")
+    @GetMapping("/songs/{songId}")
     public Song getSong(@PathVariable long songId){
         return songService.findSongById(songId);
+    }
+
+    @GetMapping("/songs")
+    public Iterable<Song> getSongs(){
+        return songService.findAllSongs();
     }
 
     @PostMapping("/uploadFile")
