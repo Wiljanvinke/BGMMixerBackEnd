@@ -14,6 +14,7 @@ public class File {
 
     private String fileName;
     private String fileType;
+    private double length;
 
     @OneToMany(mappedBy = "file")
     private List<Song> song;
