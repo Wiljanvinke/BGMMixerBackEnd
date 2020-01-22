@@ -73,11 +73,10 @@ public class Song{
         this.stages = stages;
     }
 
-    //TODO
     public void setLengthByFile(){
         new JFXPanel();
-        //Media media = new Media("http://localhost:8082/downloadFile/" + file.getId());
-        Media media = new Media("file:/C:/_FILES/HomeProject/BGMMixerBackend/test.mp3");
+        Media media = new Media("http://localhost:8082/downloadFile/" + file.getId());
+        //Media media = new Media("file:/C:/_FILES/HomeProject/BGMMixerBackend/test.mp3");
 
         MediaPlayer mediaPlayer = new MediaPlayer(media);
 
@@ -89,8 +88,17 @@ public class Song{
             for (Map.Entry<String, Object> entry : media.getMetadata().entrySet()){
                 System.out.println(entry.getKey() + ": " + entry.getValue());
             }
+            synchronized (this){
+                this.notify();
+            }
 
         });
-
+        synchronized (this){
+            try{
+                wait(10000);
+            } catch (InterruptedException e){
+                e.getMessage();
+            }
+        }
     }
 }
