@@ -56,7 +56,7 @@ public class Song {
     }
 
     public void setDuration(double duration) {
-        this.duration = duration;
+        setLengthByFile();
     }
 
     public File getFile() {
