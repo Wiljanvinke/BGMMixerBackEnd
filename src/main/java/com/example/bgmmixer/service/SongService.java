@@ -47,10 +47,10 @@ public class SongService {
         return songRepository.save(song);
     }
 
-    public Song saveSong(Song song, long fileId){
+    public SongDto saveSong(Song song, long fileId){
         File file = fileRepository.findById(fileId)
                 .orElseThrow(() -> new MyFileNotFoundException("File not found with id: " + fileId));
-        return songRepository.save(new Song(song.getName(), file));
+        return new SongDto(songRepository.save(new Song(song.getName(), file)));
     }
 
     public SongDto updateSong(SongDto newSong, long songId){

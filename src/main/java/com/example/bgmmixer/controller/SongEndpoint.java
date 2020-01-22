@@ -39,7 +39,7 @@ public class SongEndpoint {
     }
 
     @PostMapping("/songs/{fileID}")
-    public Song newSong(@RequestBody Song newSong, @PathVariable long fileID){
+    public SongDto newSong(@RequestBody Song newSong, @PathVariable long fileID){
         return songService.saveSong(newSong, fileID);
     }
 

@@ -17,9 +17,11 @@ public class SongDto {
         this.name = song.getName();
         this.duration = song.getDuration();
         this.fileId = song.getFile().getId();
-        stageIds = new long[song.getStages().size()];
-        for(int i = 0; i < song.getStages().size(); i++){
-            stageIds[i] = song.getStages().get(i).getId();
+        if(song.getStages() != null) {
+            stageIds = new long[song.getStages().size()];
+            for (int i = 0; i < song.getStages().size(); i++) {
+                stageIds[i] = song.getStages().get(i).getId();
+            }
         }
     }
 
