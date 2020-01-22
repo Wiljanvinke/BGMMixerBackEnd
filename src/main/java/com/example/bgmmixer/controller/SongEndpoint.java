@@ -1,4 +1,4 @@
-package com.example.bgmmixer.api;
+package com.example.bgmmixer.controller;
 
 import com.example.bgmmixer.dtos.SongDto;
 import com.example.bgmmixer.model.File;
@@ -16,27 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
-
 
 @RestController
 public class SongEndpoint {
 
     @Autowired
     private SongService songService;
-    @Autowired
-    private FileService fileService;
-
-    @GetMapping("/downloadFile/{fileId}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable long fileId) {
-        // Load file from database
-        File file = fileService.getFile(fileId);
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(file.getFileType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
-                .body(new ByteArrayResource(file.getData()));
-    }
 
     @GetMapping("/songs/{songId}")
     public Song getSong(@PathVariable long songId){
@@ -46,20 +31,6 @@ public class SongEndpoint {
     @GetMapping("/songs")
     public Iterable<Song> getSongs(){
         return songService.findAllSongs();
-    }
-
-    @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        System.out.println("Received");
-        File dbFile = fileService.storeFile(file);
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(Long.toString(dbFile.getId()))
-                .toUriString();
-
-        return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
-                file.getContentType(), file.getSize());
     }
 
     @PostMapping("/songs")
