@@ -5,6 +5,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.minidev.json.annotate.JsonIgnore;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.persistence.*;
 import java.util.List;
@@ -77,7 +78,12 @@ public class Song {
 
     private void setLengthByFile(){
         new JFXPanel();
-        Media media = new Media("http://localhost:8082/downloadFile/" + file.getId());
+        String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(Long.toString(file.getId()))
+                .toUriString();
+        System.out.println(fileUri);
+        Media media = new Media(fileUri);
         //Media media = new Media("file:/C:/_FILES/HomeProject/BGMMixerBackend/test.mp3");
 
         MediaPlayer mediaPlayer = new MediaPlayer(media);
