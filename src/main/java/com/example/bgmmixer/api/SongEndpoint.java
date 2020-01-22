@@ -1,5 +1,6 @@
 package com.example.bgmmixer.api;
 
+import com.example.bgmmixer.dtos.SongDto;
 import com.example.bgmmixer.model.File;
 import com.example.bgmmixer.model.Song;
 import com.example.bgmmixer.payload.UploadFileResponse;
@@ -69,6 +70,11 @@ public class SongEndpoint {
     @PostMapping("/songs/{fileID}")
     public Song newSong(@RequestBody Song newSong, @PathVariable long fileID){
         return songService.saveSong(newSong, fileID);
+    }
+
+    @PutMapping("/songs/{songID}")
+    public SongDto updateSong(@RequestBody SongDto songDto, @PathVariable long songID){
+        return songService.updateSong(songDto, songID);
     }
 
     @DeleteMapping("/songs/{songID}")
