@@ -3,13 +3,15 @@ package com.example.bgmmixer.model;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 
 @Entity
-public class Song{
+public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,7 +75,7 @@ public class Song{
         this.stages = stages;
     }
 
-    public void setLengthByFile(){
+    private void setLengthByFile(){
         new JFXPanel();
         Media media = new Media("http://localhost:8082/downloadFile/" + file.getId());
         //Media media = new Media("file:/C:/_FILES/HomeProject/BGMMixerBackend/test.mp3");
