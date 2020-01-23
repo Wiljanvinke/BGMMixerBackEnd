@@ -24,12 +24,12 @@ public class SongEndpoint {
     private SongService songService;
 
     @GetMapping("/songs/{songId}")
-    public Song getSong(@PathVariable long songId){
+    public SongDto getSong(@PathVariable long songId){
         return songService.findSongById(songId);
     }
 
     @GetMapping("/songs")
-    public Iterable<Song> getSongs(){
+    public Iterable<SongDto> getSongs(){
         return songService.findAllSongs();
     }
 

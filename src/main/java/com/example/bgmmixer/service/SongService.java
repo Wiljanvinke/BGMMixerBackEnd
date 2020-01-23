@@ -19,6 +19,8 @@ import org.springframework.web.context.support.ServletContextResource;
 
 import javax.servlet.ServletContext;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SongService {
@@ -32,14 +34,16 @@ public class SongService {
         return songRepository.save(song);
     }
 
-    public Song findSongById(long id){
+    public SongDto findSongById(long id){
         Song song = songRepository.findById(id)
                 .orElseThrow(() -> new SongNotFoundException("Song not found with id: " + id));
-        return song;
+        return new SongDto(song);
     }
 
-    public Iterable<Song> findAllSongs(){
-        return songRepository.findAll();
+    public Iterable<SongDto> findAllSongs(){
+        List<SongDto> songDtos = new ArrayList<>();
+        songRepository.findAll().forEach(song -> songDtos.add(new SongDto(song)));
+        return songDtos;
 
     }
 
