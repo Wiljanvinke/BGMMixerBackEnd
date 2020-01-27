@@ -1,5 +1,6 @@
 package com.example.bgmmixer.controller;
 
+import com.example.bgmmixer.dtos.FileDto;
 import com.example.bgmmixer.model.File;
 import com.example.bgmmixer.payload.UploadFileResponse;
 import com.example.bgmmixer.service.FileService;
@@ -19,6 +20,11 @@ public class FileEndpoint {
 
     @Autowired
     private FileService fileService;
+
+    @GetMapping("/files")
+    public Iterable<FileDto> getFiles(){
+        return fileService.getAllFiles();
+    }
 
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable long fileId) {
