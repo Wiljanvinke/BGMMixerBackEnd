@@ -18,37 +18,38 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 @RestController
+@RequestMapping("/songs")
 public class SongEndpoint {
 
     @Autowired
     private SongService songService;
 
-    @GetMapping("/songs/{songId}")
+    @GetMapping("/{songId}")
     public SongDto getSong(@PathVariable long songId){
         return songService.findSongById(songId);
     }
 
-    @GetMapping("/songs")
+    @GetMapping()
     public Iterable<SongDto> getSongs(){
         return songService.findAllSongs();
     }
 
-    @PostMapping("/songs")
+    @PostMapping()
     public Song newSong(@RequestBody Song newSong){
         return songService.saveSong(newSong);
     }
 
-    @PostMapping("/songs/{fileID}")
+    @PostMapping("/{fileID}")
     public SongDto newSong(@RequestBody Song newSong, @PathVariable long fileID){
         return songService.saveSong(newSong, fileID);
     }
 
-    @PutMapping("/songs/{songID}")
+    @PutMapping("/{songID}")
     public SongDto updateSong(@RequestBody SongDto songDto, @PathVariable long songID){
         return songService.updateSong(songDto, songID);
     }
 
-    @DeleteMapping("/songs/{songID}")
+    @DeleteMapping("/{songID}")
     public void deleteSong(@PathVariable long songID){
         songService.deleteSong(songID);
     }
