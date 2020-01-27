@@ -52,4 +52,9 @@ public class FileService {
         }
         return fileDtos;
     }
+
+    public FileDto getFileDto(long fileId){
+        return new FileDto(fileRepository.findById(fileId)
+                .orElseThrow(() -> new MyFileNotFoundException("File not found with id " + fileId)));
+    }
 }

@@ -26,6 +26,11 @@ public class FileEndpoint {
         return fileService.getAllFiles();
     }
 
+    @GetMapping("/files/{fileId}")
+    public FileDto getFileDto(@PathVariable long fileId){
+        return fileService.getFileDto(fileId);
+    }
+
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable long fileId) {
         // Load file from database
