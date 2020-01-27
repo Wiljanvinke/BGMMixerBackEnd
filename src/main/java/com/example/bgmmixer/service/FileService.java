@@ -27,7 +27,7 @@ public class FileService {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
-            File dBfile = new File(fileName, file.getContentType(), file.getBytes());
+            File dBfile = new File(fileName, file.getContentType(), file.getSize(), file.getBytes());
 
             return fileRepository.save(dBfile);
         } catch (IOException ex) {
