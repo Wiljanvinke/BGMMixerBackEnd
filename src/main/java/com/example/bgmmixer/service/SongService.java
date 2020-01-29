@@ -51,10 +51,16 @@ public class SongService {
         return songRepository.save(song);
     }
 
-    public SongDto saveSong(Song song, long fileId){
+    public ResponseEntity<SongDto> saveSong(Song song, long fileId){
         File file = fileRepository.findById(fileId)
                 .orElseThrow(() -> new MyFileNotFoundException("File not found with id: " + fileId));
-        return new SongDto(songRepository.save(new Song(song.getName(), file)));
+        try{
+            Song newSong = new Song(song.getName(), file);
+            return ResponseEntity.ok(new SongDto(songRepository.save(newSong)));
+        } catch (InterruptedException e){
+            e.getMessage();
+            return ResponseEntity.status(408).build();
+        }
     }
 
     public SongDto updateSong(SongDto newSong, long songId){

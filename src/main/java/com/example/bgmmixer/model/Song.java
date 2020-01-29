@@ -30,7 +30,7 @@ public class Song {
 
     }
 
-    public Song(String name, File file){
+    public Song(String name, File file) throws InterruptedException {
         this.name = name;
         this.file = file;
         setLengthByFile();
@@ -56,7 +56,7 @@ public class Song {
         return duration;
     }
 
-    public void setDuration(double duration) {
+    public void setDuration(double duration) throws InterruptedException {
         setLengthByFile();
     }
 
@@ -76,7 +76,7 @@ public class Song {
         this.stages = stages;
     }
 
-    private void setLengthByFile(){
+    private void setLengthByFile() throws InterruptedException {
         new JFXPanel();
         String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
@@ -102,11 +102,7 @@ public class Song {
 
         });
         synchronized (this){
-            try{
-                wait(10000);
-            } catch (InterruptedException e){
-                e.getMessage();
-            }
+            wait(10000);
         }
     }
 }
