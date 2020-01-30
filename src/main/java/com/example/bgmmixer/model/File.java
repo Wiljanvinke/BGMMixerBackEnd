@@ -14,7 +14,7 @@ public class File {
 
     private String fileName;
     private String fileType;
-    private double length;
+    private long fileSize;
 
     @OneToMany(mappedBy = "file")
     private List<Song> song;
@@ -26,9 +26,10 @@ public class File {
 
     }
 
-    public File(String fileName, String fileType, byte[] data){
+    public File(String fileName, String fileType, long fileSize, byte[] data){
         this.fileName = fileName;
         this.fileType = fileType;
+        this.fileSize = fileSize;
         this.data = data;
     }
 
@@ -54,6 +55,14 @@ public class File {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public long getFileSize(){
+        return fileSize;
+    }
+
+    public void setFileSize(long fileSize){
+        this.fileSize = fileSize;
     }
 
     public byte[] getData() {

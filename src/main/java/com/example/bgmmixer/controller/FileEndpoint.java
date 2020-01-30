@@ -1,5 +1,6 @@
 package com.example.bgmmixer.controller;
 
+import com.example.bgmmixer.dtos.FileDto;
 import com.example.bgmmixer.model.File;
 import com.example.bgmmixer.payload.UploadFileResponse;
 import com.example.bgmmixer.service.FileService;
@@ -13,11 +14,22 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+@CrossOrigin
 @RestController
 public class FileEndpoint {
 
     @Autowired
     private FileService fileService;
+
+    @GetMapping("/files")
+    public Iterable<FileDto> getFiles(){
+        return fileService.getAllFiles();
+    }
+
+    @GetMapping("/files/{fileId}")
+    public FileDto getFileDto(@PathVariable long fileId){
+        return fileService.getFileDto(fileId);
+    }
 
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable long fileId) {

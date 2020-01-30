@@ -16,39 +16,40 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
+@CrossOrigin
 @RestController
+@RequestMapping("/songs")
 public class SongEndpoint {
 
     @Autowired
     private SongService songService;
 
-    @GetMapping("/songs/{songId}")
-    public Song getSong(@PathVariable long songId){
+    @GetMapping("/{songId}")
+    public SongDto getSong(@PathVariable long songId){
         return songService.findSongById(songId);
     }
 
-    @GetMapping("/songs")
-    public Iterable<Song> getSongs(){
+    @GetMapping()
+    public Iterable<SongDto> getSongs(){
         return songService.findAllSongs();
     }
 
-    @PostMapping("/songs")
+    @PostMapping()
     public Song newSong(@RequestBody Song newSong){
         return songService.saveSong(newSong);
     }
 
-    @PostMapping("/songs/{fileID}")
-    public SongDto newSong(@RequestBody Song newSong, @PathVariable long fileID){
+    @PostMapping("/{fileID}")
+    public ResponseEntity<SongDto> newSong(@RequestBody Song newSong, @PathVariable long fileID){
         return songService.saveSong(newSong, fileID);
     }
 
-    @PutMapping("/songs/{songID}")
+    @PutMapping("/{songID}")
     public SongDto updateSong(@RequestBody SongDto songDto, @PathVariable long songID){
         return songService.updateSong(songDto, songID);
     }
 
-    @DeleteMapping("/songs/{songID}")
+    @DeleteMapping("/{songID}")
     public void deleteSong(@PathVariable long songID){
         songService.deleteSong(songID);
     }
