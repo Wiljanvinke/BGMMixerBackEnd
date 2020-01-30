@@ -26,6 +26,9 @@ public class Song {
     @OneToMany(mappedBy = "song", fetch = FetchType.EAGER)
     private List<Stage> stages;
 
+    @Lob
+    private String description;
+
     public Song(){
 
     }
@@ -74,6 +77,14 @@ public class Song {
 
     public void setStages(List<Stage> stages) {
         this.stages = stages;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     private void setLengthByFile() throws InterruptedException {

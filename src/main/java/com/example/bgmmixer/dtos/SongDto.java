@@ -9,6 +9,7 @@ public class SongDto {
     private double duration;
     private long fileId;
     private long[] stageIds;
+    private String description;
 
     public SongDto(){}
 
@@ -23,6 +24,7 @@ public class SongDto {
                 stageIds[i] = song.getStages().get(i).getId();
             }
         }
+        this.description = song.getDescription();
     }
 
     public long getId() {
@@ -63,5 +65,13 @@ public class SongDto {
 
     public void setStageIds(long[] stageIds) {
         this.stageIds = stageIds;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
