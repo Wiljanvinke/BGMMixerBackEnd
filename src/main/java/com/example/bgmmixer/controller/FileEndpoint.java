@@ -46,13 +46,14 @@ public class FileEndpoint {
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
         System.out.println("Received");
         File dbFile = fileService.storeFile(file);
+        System.out.println("dbFile.getId(): " + dbFile.getId());
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(Long.toString(dbFile.getId()))
                 .toUriString();
-
-        return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
+        System.out.println("fileDownloadUri: " + fileDownloadUri);
+        return new UploadFileResponse(dbFile.getId(), dbFile.getFileName(), fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
 
