@@ -1,16 +1,26 @@
 package com.example.bgmmixer.payload;
 
 public class UploadFileResponse {
+    private long id;
     private String fileName;
     private String fileDownloadUri;
     private String fileType;
     private long size;
 
-    public UploadFileResponse(String fileName, String fileDownloadUri, String fileType, long size) {
+    public UploadFileResponse(long id, String fileName, String fileDownloadUri, String fileType, long size) {
+        this.id = id;
         this.fileName = fileName;
         this.fileDownloadUri = fileDownloadUri;
         this.fileType = fileType;
         this.size = size;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFileName() {
