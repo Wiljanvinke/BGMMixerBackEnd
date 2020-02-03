@@ -1,6 +1,6 @@
 package com.example.bgmmixer.service;
 
-import com.example.bgmmixer.MyUtils;
+import com.example.bgmmixer.utils.MyUtils;
 import com.example.bgmmixer.dtos.SongDto;
 import com.example.bgmmixer.exceptions.MyFileNotFoundException;
 import com.example.bgmmixer.exceptions.SongNotFoundException;
@@ -8,17 +8,10 @@ import com.example.bgmmixer.model.File;
 import com.example.bgmmixer.model.Song;
 import com.example.bgmmixer.repositories.FileRepository;
 import com.example.bgmmixer.repositories.SongRepository;
-import javafx.scene.media.Media;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileUrlResource;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.support.ServletContextResource;
 
-import javax.servlet.ServletContext;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
