@@ -45,7 +45,7 @@ public class SongEndpoint {
     }
 
     @PutMapping("/{songID}")
-    public SongDto updateSong(@RequestBody SongDto songDto, @PathVariable long songID){
+    public ResponseEntity<SongDto> updateSong(@RequestBody SongDto songDto, @PathVariable long songID){
         return songService.updateSong(songDto, songID);
     }
 

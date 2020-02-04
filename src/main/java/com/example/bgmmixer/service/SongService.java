@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,12 +57,15 @@ public class SongService {
         }
     }
 
-    public SongDto updateSong(SongDto newSong, long songId){
+    public ResponseEntity<SongDto> updateSong(SongDto newSongDto, long songId){
         Song song = songRepository.findById(songId)
                 .orElseThrow(() -> new SongNotFoundException("Song not found with id: " + songId));
-        System.out.println("SongId: " + newSong.getId());
-        MyUtils.copyProperties(newSong, song);
-        return new SongDto(songRepository.save(song));
+        System.out.println("SongId: " + newSongDto.getId());
+        File file = fileRepository.findById(newSongDto.getFileId())
+                .orElseThrow(() -> new MyFileNotFoundException("File not found with id: " + newSongDto.getFileId()));
+        MyUtils.copyProperties(newSongDto, song);
+        song.setFile(file);
+        return ResponseEntity.ok(new SongDto(songRepository.save(song)));
     }
 
     public void deleteSong(long songId){
