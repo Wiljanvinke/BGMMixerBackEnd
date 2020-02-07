@@ -1,5 +1,6 @@
 package com.example.bgmmixer.model;
 
+import com.example.bgmmixer.dtos.SongDto;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -115,5 +116,9 @@ public class Song {
         synchronized (this){
             wait(10000);
         }
+    }
+
+    public boolean addStage(Stage stage){
+        return stages.add(stage);
     }
 }

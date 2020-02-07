@@ -33,7 +33,7 @@ public class FileService {
 
             File dBfile = new File(fileName, file.getContentType(), file.getSize(), file.getBytes());
 
-            return fileRepository.save(dBfile);
+            return fileRepository.saveAndFlush(dBfile);
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
         }
