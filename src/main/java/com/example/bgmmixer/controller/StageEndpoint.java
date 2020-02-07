@@ -14,7 +14,7 @@ public class StageEndpoint {
     private SongService songService;
 
     @GetMapping("/{songId}")
-    public StageDto getStages(@PathVariable long songId){
+    public Iterable<StageDto> getStages(@PathVariable long songId){
         System.out.println("Get Stages for " + songId);
         return songService.findAllStagesBySongId(songId);
     }
