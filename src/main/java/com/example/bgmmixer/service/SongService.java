@@ -1,5 +1,8 @@
 package com.example.bgmmixer.service;
 
+import com.example.bgmmixer.dtos.StageDto;
+import com.example.bgmmixer.model.Stage;
+import com.example.bgmmixer.repositories.StageRepository;
 import com.example.bgmmixer.utils.MyUtils;
 import com.example.bgmmixer.dtos.SongDto;
 import com.example.bgmmixer.exceptions.MyFileNotFoundException;
@@ -23,6 +26,8 @@ public class SongService {
     private SongRepository songRepository;
     @Autowired
     private FileRepository fileRepository;
+    @Autowired
+    private StageRepository stageRepository;
 
     public Song addSong(Song song){
         return songRepository.save(song);
@@ -72,4 +77,13 @@ public class SongService {
         songRepository.deleteById(songId);
     }
 
+    public Iterable<StageDto> findAllStagesBySongId(long songId) {
+        Song song = songRepository.findById(songId)
+                .orElseThrow(() -> new SongNotFoundException("Song not found with id: " + songId));
+        List<StageDto> stageDtos = new ArrayList<>();
+        for(Stage stage: song.getStages()){
+            stageDtos.add(new StageDto(stage));
+        }
+        return stageDtos;
+    }
 }
