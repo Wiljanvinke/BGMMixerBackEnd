@@ -92,4 +92,23 @@ public class SongService {
         return new StageDto(stageRepository.findById(stageId)
                 .orElseThrow(() -> new StageNotFoundException("Stage not found with id: " + stageId)));
     }
+
+    public ResponseEntity<StageDto> saveStage(Stage stage, long songId) {
+        Song song = songRepository.findById(songId)
+                .orElseThrow(() -> new SongNotFoundException("Song not found with id: " + songId));
+        if(song.addStage(stage)){
+            songRepository.save(song);
+            stage.setSong(song);
+            return ResponseEntity.ok(new StageDto(stageRepository.save(stage)));
+        } else {
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    public ResponseEntity<StageDto> updateStage(Stage newStage, long stageId) {
+        Stage stage = stageRepository.findById(stageId)
+                .orElseThrow(() -> new StageNotFoundException("Stage not found with id: " + stageId));
+        MyUtils.copyProperties(newStage, stage);
+        return ResponseEntity.ok(new StageDto(stageRepository.save(stage)));
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.bgmmixer.model;
 
+import com.example.bgmmixer.dtos.StageDto;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,6 +19,12 @@ public class Stage {
     private Song song;
 
     public Stage(){}
+
+    public Stage(StageDto stageDto){
+        this.name = stageDto.getName();
+        this.startTime = stageDto.getStartTime();
+        this.endTime = stageDto.getEndTime();
+    }
 
     public long getId() {
         return id;

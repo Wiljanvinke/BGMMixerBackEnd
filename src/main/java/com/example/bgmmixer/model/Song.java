@@ -117,4 +117,8 @@ public class Song {
             wait(10000);
         }
     }
+
+    public boolean addStage(Stage stage){
+        return stages.add(stage);
+    }
 }

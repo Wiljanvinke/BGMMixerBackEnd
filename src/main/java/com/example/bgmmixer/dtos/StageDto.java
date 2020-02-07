@@ -15,7 +15,9 @@ public class StageDto {
         this.name = stage.getName();
         this.startTime = stage.getStartTime();
         this.endTime = stage.getEndTime();
-        this.songId = stage.getSong().getId();
+        if(stage.getSong() != null) {
+            this.songId = stage.getSong().getId();
+        }
     }
 
     public long getId() {
