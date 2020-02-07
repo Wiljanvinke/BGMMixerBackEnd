@@ -1,6 +1,7 @@
 package com.example.bgmmixer.service;
 
 import com.example.bgmmixer.dtos.StageDto;
+import com.example.bgmmixer.exceptions.StageNotFoundException;
 import com.example.bgmmixer.model.Stage;
 import com.example.bgmmixer.repositories.StageRepository;
 import com.example.bgmmixer.utils.MyUtils;
@@ -85,5 +86,10 @@ public class SongService {
             stageDtos.add(new StageDto(stage));
         }
         return stageDtos;
+    }
+
+    public StageDto findStageById(long stageId) {
+        return new StageDto(stageRepository.findById(stageId)
+                .orElseThrow(() -> new StageNotFoundException("Stage not found with id: " + stageId)));
     }
 }

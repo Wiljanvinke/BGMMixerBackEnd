@@ -13,9 +13,15 @@ public class StageEndpoint {
     @Autowired
     private SongService songService;
 
-    @GetMapping("/{songId}")
+    @GetMapping("/song/{songId}")
     public Iterable<StageDto> getStages(@PathVariable long songId){
         System.out.println("Get Stages for " + songId);
         return songService.findAllStagesBySongId(songId);
+    }
+
+    @GetMapping("/{stageId}")
+    public StageDto getStage(@PathVariable long stageId){
+        System.out.println("Get Stage for " + stageId);
+        return songService.findStageById(stageId);
     }
 }
