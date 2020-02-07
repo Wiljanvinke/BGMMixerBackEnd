@@ -38,4 +38,16 @@ public class StageEndpoint {
         System.out.println("Put Stage " + stageId);
         return songService.updateStage(stage, stageId);
     }
+
+    @DeleteMapping("/{stageId}")
+    public ResponseEntity<StageDto> deleteStage(@PathVariable long stageId){
+        System.out.println("Delete Stage " + stageId);
+        return songService.deleteStage(stageId);
+    }
+
+    @DeleteMapping("/song/{songId}")
+    public ResponseEntity<Iterable<StageDto>> deleteAllStagesFromSong(@PathVariable long songId){
+        System.out.println("Delete all Stages from " + songId);
+        return songService.deleteAllFromSong(songId);
+    }
 }

@@ -111,4 +111,22 @@ public class SongService {
         MyUtils.copyProperties(newStage, stage);
         return ResponseEntity.ok(new StageDto(stageRepository.save(stage)));
     }
+
+    public ResponseEntity<StageDto> deleteStage(long stageId) {
+        Stage stage = stageRepository.findById(stageId)
+                .orElseThrow(() -> new StageNotFoundException("Stage not found with id: " + stageId));
+        stageRepository.deleteById(stageId);
+        return ResponseEntity.ok(new StageDto(stage));
+    }
+
+    public ResponseEntity<Iterable<StageDto>> deleteAllFromSong(long songId) {
+        Song song = songRepository.findById(songId)
+                .orElseThrow(() -> new SongNotFoundException("Song not found with id: " + songId));
+        List<StageDto> stageDtos = new ArrayList<>();
+        for (Stage stage: song.getStages()) {
+            stageDtos.add(new StageDto(stage));
+        }
+        stageRepository.deleteAll(song.getStages());
+        return ResponseEntity.ok(stageDtos);
+    }
 }
