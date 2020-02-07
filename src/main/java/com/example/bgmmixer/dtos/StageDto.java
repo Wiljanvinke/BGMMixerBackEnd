@@ -17,4 +17,44 @@ public class StageDto {
         this.endTime = stage.getEndTime();
         this.songId = stage.getSong().getId();
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(double startTime) {
+        this.startTime = startTime;
+    }
+
+    public double getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(double endTime) {
+        this.endTime = endTime;
+    }
+
+    public long getSongId() {
+        return songId;
+    }
+
+    public void setSongId(long songId) {
+        this.songId = songId;
+    }
 }
