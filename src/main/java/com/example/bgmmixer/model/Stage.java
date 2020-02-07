@@ -10,8 +10,8 @@ public class Stage {
     private long id;
 
     private String name;
-    private int startTime;
-    private int endTime;
+    private double startTime;
+    private double endTime;
 
     @ManyToOne
     private Song song;
@@ -34,7 +34,7 @@ public class Stage {
         this.name = name;
     }
 
-    public int getStartTime() {
+    public double getStartTime() {
         return startTime;
     }
 
@@ -42,7 +42,7 @@ public class Stage {
         this.startTime = startTime;
     }
 
-    public int getEndTime() {
+    public double getEndTime() {
         return endTime;
     }
 
