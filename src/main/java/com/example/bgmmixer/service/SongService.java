@@ -54,13 +54,8 @@ public class SongService {
     public ResponseEntity<SongDto> saveSong(Song song, long fileId){
         File file = fileRepository.findById(fileId)
                 .orElseThrow(() -> new MyFileNotFoundException("File not found with id: " + fileId));
-        try{
-            Song newSong = new Song(song.getName(), file);
-            return ResponseEntity.ok(new SongDto(songRepository.save(newSong)));
-        } catch (InterruptedException e){
-            e.getMessage();
-            return ResponseEntity.status(408).build();
-        }
+        Song newSong = new Song(song.getName(), file);
+        return ResponseEntity.ok(new SongDto(songRepository.save(newSong)));
     }
 
     public ResponseEntity<SongDto> updateSong(SongDto newSongDto, long songId){
