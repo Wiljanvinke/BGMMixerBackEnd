@@ -164,4 +164,16 @@ public class SongService {
         playlistRepository.deleteById(playlistId);
         return ResponseEntity.ok(playlistDto);
     }
+
+    public List<SongDto> findSongsFromPlaylist(long playlistId) {
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+        List<Long> songsIds = new ArrayList<>();
+        for(Song song: playlist.getSongs()){
+            songsIds.add(song.getId());
+        }
+        List<SongDto> songDtos = new ArrayList<>();
+                songRepository.findAllById(songsIds).forEach(song -> songDtos.add(new SongDto(song)));
+        return songDtos;
+    }
 }

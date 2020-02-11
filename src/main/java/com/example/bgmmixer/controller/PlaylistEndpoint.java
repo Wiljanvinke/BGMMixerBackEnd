@@ -1,6 +1,7 @@
 package com.example.bgmmixer.controller;
 
 import com.example.bgmmixer.dtos.PlaylistDto;
+import com.example.bgmmixer.dtos.SongDto;
 import com.example.bgmmixer.model.Playlist;
 import com.example.bgmmixer.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ public class PlaylistEndpoint {
     @GetMapping("/{playlistId}")
     private PlaylistDto getPlaylist(@PathVariable long playlistId){
         return songService.findPlaylistById(playlistId);
+    }
+
+    @GetMapping("/{playlistId}/songs")
+    private List<SongDto> getSongsFromPlaylist(@PathVariable long playlistId){
+        return songService.findSongsFromPlaylist(playlistId);
     }
 
     @PostMapping
