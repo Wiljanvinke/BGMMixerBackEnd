@@ -20,32 +20,38 @@ public class PlaylistEndpoint {
 
     @GetMapping
     private List<PlaylistDto> getPlaylists(){
+        System.out.println("GET all Playlists");
         return songService.findAllPlaylists();
     }
 
     @GetMapping("/{playlistId}")
     private PlaylistDto getPlaylist(@PathVariable long playlistId){
+        System.out.println("GET Playlist " + playlistId);
         return songService.findPlaylistById(playlistId);
     }
 
     @GetMapping("/{playlistId}/songs")
     private List<SongDto> getSongsFromPlaylist(@PathVariable long playlistId){
+        System.out.println("GET Songs from Playlist " + playlistId);
         return songService.findSongsFromPlaylist(playlistId);
     }
 
     @PostMapping
     private ResponseEntity<PlaylistDto> newPlaylist(@RequestBody PlaylistDto playlistDto){
+        System.out.println("POST new Playlist");
         return songService.savePlaylist(playlistDto);
     }
 
     @PutMapping("/{playlistId}")
     private ResponseEntity<PlaylistDto> updatePlaylist(
             @PathVariable long playlistId, @RequestBody PlaylistDto playlistDto){
+        System.out.println("PUT Playlist " + playlistId);
         return songService.updatePlaylist(playlistId, playlistDto);
     }
 
     @DeleteMapping("/{playlistId}")
     private ResponseEntity<PlaylistDto> deletePlaylist(@PathVariable long playlistId){
+        System.out.println("DELETE Playlist " + playlistId);
         return songService.deletePlaylist(playlistId);
     }
 }
