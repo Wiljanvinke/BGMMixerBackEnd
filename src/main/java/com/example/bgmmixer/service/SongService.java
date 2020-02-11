@@ -157,4 +157,11 @@ public class SongService {
         MyUtils.copyProperties(playlistDto, playlist);
         return ResponseEntity.ok(new PlaylistDto(playlistRepository.save(playlist)));
     }
+
+    public ResponseEntity<PlaylistDto> deletePlaylist(long playlistId) {
+        PlaylistDto playlistDto = new PlaylistDto(playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId)));
+        playlistRepository.deleteById(playlistId);
+        return ResponseEntity.ok(playlistDto);
+    }
 }

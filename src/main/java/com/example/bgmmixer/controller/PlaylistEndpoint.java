@@ -37,4 +37,9 @@ public class PlaylistEndpoint {
             @PathVariable long playlistId, @RequestBody PlaylistDto playlistDto){
         return songService.updatePlaylist(playlistId, playlistDto);
     }
+
+    @DeleteMapping("/{playlistId}")
+    private ResponseEntity<PlaylistDto> deletePlaylist(@PathVariable long playlistId){
+        return songService.deletePlaylist(playlistId);
+    }
 }
