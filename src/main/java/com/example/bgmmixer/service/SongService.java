@@ -155,6 +155,31 @@ public class SongService {
         Playlist playlist = playlistRepository.findById(playlistId)
                 .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
         MyUtils.copyProperties(playlistDto, playlist);
+        List<Song> songs = playlist.getSongs();
+        List<Long> songIds = new ArrayList<>();
+        for (Song song : songs) {
+            songIds.add(song.getId());
+        }
+        List<Long> newSongIds = new ArrayList<>();
+        for (int i = 0; i < playlistDto.getSongIds().length; i++){
+            newSongIds.add(playlistDto.getSongIds()[i]);
+        }
+        //Add new Songs
+        for (Long newSongId: newSongIds){
+            if(!songIds.contains(newSongId)){
+                songIds.add(newSongId);
+                songs.add(songRepository.findById(newSongId)
+                        .orElseThrow(() -> new SongNotFoundException(newSongId)));
+            }
+        }
+        //Remove old Songs
+        for (Long songId: songIds){
+            if(!newSongIds.contains(songId)){
+                songs.remove(songRepository.findById(songId)
+                        .orElseThrow(() -> new SongNotFoundException(songId)));
+
+            }
+        }
         return ResponseEntity.ok(new PlaylistDto(playlistRepository.save(playlist)));
     }
 
