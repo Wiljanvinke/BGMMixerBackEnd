@@ -30,6 +30,11 @@ public class PlaylistEndpoint {
         return songService.findPlaylistById(playlistId);
     }
 
+    @GetMapping("/default")
+    private ResponseEntity<PlaylistDto> getDefaultPlaylist(){
+        return songService.findDefaultPlaylist();
+    }
+
     @GetMapping("/{playlistId}/songs")
     private List<SongDto> getSongsFromPlaylist(@PathVariable long playlistId){
         System.out.println("GET Songs from Playlist " + playlistId);
@@ -47,6 +52,12 @@ public class PlaylistEndpoint {
             @PathVariable long playlistId, @RequestBody PlaylistDto playlistDto){
         System.out.println("PUT Playlist " + playlistId);
         return songService.updatePlaylist(playlistId, playlistDto);
+    }
+
+    @PutMapping("/{playlistId}/default")
+    private ResponseEntity<PlaylistDto> updatePlaylistDefault(@PathVariable long playlistId){
+        System.out.println("PUT default Playlist " + playlistId);
+        return songService.setDefaultplaylist(playlistId);
     }
 
     @DeleteMapping("/{playlistId}")

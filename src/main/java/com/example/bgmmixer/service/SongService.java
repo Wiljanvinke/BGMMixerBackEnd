@@ -154,30 +154,32 @@ public class SongService {
     public ResponseEntity<PlaylistDto> updatePlaylist(long playlistId, PlaylistDto playlistDto) {
         Playlist playlist = playlistRepository.findById(playlistId)
                 .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
-        MyUtils.copyProperties(playlistDto, playlist);
+        playlist.setName(playlistDto.getName());
         List<Song> songs = playlist.getSongs();
         List<Long> songIds = new ArrayList<>();
-        for (Song song : songs) {
-            songIds.add(song.getId());
-        }
-        List<Long> newSongIds = new ArrayList<>();
-        for (int i = 0; i < playlistDto.getSongIds().length; i++){
-            newSongIds.add(playlistDto.getSongIds()[i]);
-        }
-        //Add new Songs
-        for (Long newSongId: newSongIds){
-            if(!songIds.contains(newSongId)){
-                songIds.add(newSongId);
-                songs.add(songRepository.findById(newSongId)
-                        .orElseThrow(() -> new SongNotFoundException(newSongId)));
+        if (playlistDto.getSongIds() != null) {
+            for (Song song : songs) {
+                songIds.add(song.getId());
             }
-        }
-        //Remove old Songs
-        for (Long songId: songIds){
-            if(!newSongIds.contains(songId)){
-                songs.remove(songRepository.findById(songId)
-                        .orElseThrow(() -> new SongNotFoundException(songId)));
+            List<Long> newSongIds = new ArrayList<>();
+            for (int i = 0; i < playlistDto.getSongIds().length; i++) {
+                newSongIds.add(playlistDto.getSongIds()[i]);
+            }
+            //Add new Songs
+            for (Long newSongId : newSongIds) {
+                if (!songIds.contains(newSongId)) {
+                    songIds.add(newSongId);
+                    songs.add(songRepository.findById(newSongId)
+                            .orElseThrow(() -> new SongNotFoundException(newSongId)));
+                }
+            }
+            //Remove old Songs
+            for (Long songId : songIds) {
+                if (!newSongIds.contains(songId)) {
+                    songs.remove(songRepository.findById(songId)
+                            .orElseThrow(() -> new SongNotFoundException(songId)));
 
+                }
             }
         }
         return ResponseEntity.ok(new PlaylistDto(playlistRepository.save(playlist)));
@@ -200,5 +202,26 @@ public class SongService {
         List<SongDto> songDtos = new ArrayList<>();
                 songRepository.findAllById(songsIds).forEach(song -> songDtos.add(new SongDto(song)));
         return songDtos;
+    }
+
+    public ResponseEntity<PlaylistDto> findDefaultPlaylist() {
+        for (Playlist playlist : playlistRepository.findAll()) {
+            if (playlist.isDefault()) {
+                return ResponseEntity.ok(new PlaylistDto(playlist));
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity<PlaylistDto> setDefaultplaylist(long playlistId) {
+        for (Playlist playlist : playlistRepository.findAll()) {
+            if (playlist.isDefault()) {
+                playlist.setDefault(false);
+            }
+        }
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+        playlist.setDefault(true);
+        return ResponseEntity.ok(new PlaylistDto(playlist));
     }
 }
