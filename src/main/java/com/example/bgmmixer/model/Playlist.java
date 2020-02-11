@@ -14,6 +14,7 @@ public class Playlist {
     private long id;
 
     private String name;
+    private boolean isDefault;
 
     @ManyToMany
     private List<Song> songs = new ArrayList<>();
@@ -23,6 +24,7 @@ public class Playlist {
 
     public Playlist(PlaylistDto playlistDto){
         this.name = playlistDto.getName();
+        this.isDefault = playlistDto.isDefault();
     }
 
     public long getId() {
@@ -39,6 +41,14 @@ public class Playlist {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
     }
 
     public List<Song> getSongs() {

@@ -6,6 +6,7 @@ import com.example.bgmmixer.model.Song;
 public class PlaylistDto {
     private long id;
     private String name;
+    private boolean isDefault;
     private long[] songIds;
 
     public PlaylistDto(){
@@ -15,6 +16,7 @@ public class PlaylistDto {
     public PlaylistDto(Playlist playlist){
         this.id = playlist.getId();
         this.name = playlist.getName();
+        this.isDefault = playlist.isDefault();
         songIds = new long[playlist.getSongs().size()];
         for(int i = 0; i < playlist.getSongs().size(); i++){
             songIds[i] = playlist.getSongs().get(i).getId();
@@ -35,6 +37,14 @@ public class PlaylistDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
     }
 
     public long[] getSongIds() {
