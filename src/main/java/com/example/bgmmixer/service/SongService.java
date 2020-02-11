@@ -141,4 +141,13 @@ public class SongService {
         return new PlaylistDto(playlistRepository.findById(playlistId)
                 .orElseThrow(() -> new PlaylistNotFoundException("Playlist not found with id: " + playlistId)));
     }
+
+    public ResponseEntity<PlaylistDto> savePlaylist(PlaylistDto playlistDto) {
+        Playlist playlist = new Playlist(playlistDto);
+        for(int i = 0; i < playlistDto.getSongIds().length; i++) {
+            playlist.addSong(songRepository.findById(playlistDto.getSongIds()[i])
+                    .orElseThrow(() -> new PlaylistNotFoundException("Playlist not found with id")));
+        }
+        return ResponseEntity.ok(new PlaylistDto(playlistRepository.save(playlist)));
+    }
 }

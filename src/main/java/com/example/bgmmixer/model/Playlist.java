@@ -1,6 +1,9 @@
 package com.example.bgmmixer.model;
 
+import com.example.bgmmixer.dtos.PlaylistDto;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,6 +19,10 @@ public class Playlist {
     private List<Song> songs;
 
     public Playlist(){
+    }
+
+    public Playlist(PlaylistDto playlistDto){
+        this.name = playlistDto.getName();
     }
 
     public long getId() {
@@ -40,5 +47,9 @@ public class Playlist {
 
     public void setSongs(List<Song> songs) {
         this.songs = songs;
+    }
+
+    public void addSong(Song song){
+        songs.add(song);
     }
 }
