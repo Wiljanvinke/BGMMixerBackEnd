@@ -31,4 +31,10 @@ public class PlaylistEndpoint {
     private ResponseEntity<PlaylistDto> newPlaylist(@RequestBody PlaylistDto playlistDto){
         return songService.savePlaylist(playlistDto);
     }
+
+    @PutMapping("/{playlistId}")
+    private ResponseEntity<PlaylistDto> updatePlaylist(
+            @PathVariable long playlistId, @RequestBody PlaylistDto playlistDto){
+        return songService.updatePlaylist(playlistId, playlistDto);
+    }
 }

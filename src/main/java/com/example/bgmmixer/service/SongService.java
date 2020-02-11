@@ -139,7 +139,7 @@ public class SongService {
 
     public PlaylistDto findPlaylistById(long playlistId){
         return new PlaylistDto(playlistRepository.findById(playlistId)
-                .orElseThrow(() -> new PlaylistNotFoundException("Playlist not found with id: " + playlistId)));
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId)));
     }
 
     public ResponseEntity<PlaylistDto> savePlaylist(PlaylistDto playlistDto) {
@@ -148,6 +148,13 @@ public class SongService {
             playlist.addSong(songRepository.findById(playlistDto.getSongIds()[i])
                     .orElseThrow(() -> new PlaylistNotFoundException("Playlist not found with id")));
         }
+        return ResponseEntity.ok(new PlaylistDto(playlistRepository.save(playlist)));
+    }
+
+    public ResponseEntity<PlaylistDto> updatePlaylist(long playlistId, PlaylistDto playlistDto) {
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+        MyUtils.copyProperties(playlistDto, playlist);
         return ResponseEntity.ok(new PlaylistDto(playlistRepository.save(playlist)));
     }
 }
