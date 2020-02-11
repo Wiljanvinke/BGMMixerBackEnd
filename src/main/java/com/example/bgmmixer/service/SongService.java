@@ -2,6 +2,7 @@ package com.example.bgmmixer.service;
 
 import com.example.bgmmixer.dtos.PlaylistDto;
 import com.example.bgmmixer.dtos.StageDto;
+import com.example.bgmmixer.exceptions.PlaylistNotFoundException;
 import com.example.bgmmixer.exceptions.StageNotFoundException;
 import com.example.bgmmixer.model.Playlist;
 import com.example.bgmmixer.model.Stage;
@@ -134,5 +135,10 @@ public class SongService {
         List<PlaylistDto> playlists = new ArrayList<>();
         playlistRepository.findAll().forEach(playlist -> playlists.add(new PlaylistDto(playlist)));
         return playlists;
+    }
+
+    public PlaylistDto findPlaylistById(long playlistId){
+        return new PlaylistDto(playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException("Playlist not found with id: " + playlistId)));
     }
 }
