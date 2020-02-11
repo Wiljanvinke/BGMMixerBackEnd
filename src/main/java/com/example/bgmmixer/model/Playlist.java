@@ -52,4 +52,8 @@ public class Playlist {
     public void addSong(Song song){
         songs.add(song);
     }
+
+    public boolean removeSong(Song song){
+        return songs.remove(song);
+    }
 }
