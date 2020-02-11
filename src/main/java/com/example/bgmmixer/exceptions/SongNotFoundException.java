@@ -9,6 +9,10 @@ public class SongNotFoundException extends RuntimeException {
         super(message);
     }
 
+    public SongNotFoundException(long id){
+        super("Song not found with id: " + id);
+    }
+
     public SongNotFoundException(String message, Throwable cause){
         super(message, cause);
     }
