@@ -16,7 +16,7 @@ public class Playlist {
     private String name;
 
     @ManyToMany
-    private List<Song> songs;
+    private List<Song> songs = new ArrayList<>();
 
     public Playlist(){
     }
