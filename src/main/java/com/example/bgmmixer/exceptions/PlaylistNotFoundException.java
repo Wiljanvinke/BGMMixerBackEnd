@@ -9,6 +9,10 @@ public class PlaylistNotFoundException extends RuntimeException {
         super(message);
     }
 
+    public PlaylistNotFoundException(long id){
+        super("Playlist not found with id: " + id);
+    }
+
     public PlaylistNotFoundException(String message, Throwable cause){
         super(message, cause);
     }
