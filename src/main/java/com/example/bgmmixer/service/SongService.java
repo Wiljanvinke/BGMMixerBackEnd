@@ -154,7 +154,9 @@ public class SongService {
     public ResponseEntity<PlaylistDto> updatePlaylist(long playlistId, PlaylistDto playlistDto) {
         Playlist playlist = playlistRepository.findById(playlistId)
                 .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
-        playlist.setName(playlistDto.getName());
+        if(playlistDto.getName() != null) {
+            playlist.setName(playlistDto.getName());
+        }
         List<Song> songs = playlist.getSongs();
         List<Long> songIds = new ArrayList<>();
         if (playlistDto.getSongIds() != null) {
