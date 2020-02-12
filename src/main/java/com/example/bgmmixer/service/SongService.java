@@ -226,4 +226,12 @@ public class SongService {
         playlist.setDefault(true);
         return ResponseEntity.ok(new PlaylistDto(playlist));
     }
+
+    public ResponseEntity<PlaylistDto> addSongToPlaylist(long playlistId, long songId) {
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+        playlist.addSong(songRepository.findById(songId)
+                .orElseThrow(() -> new SongNotFoundException(songId)));
+        return ResponseEntity.ok(new PlaylistDto(playlist));
+    }
 }
