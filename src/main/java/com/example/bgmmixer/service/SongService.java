@@ -215,7 +215,7 @@ public class SongService {
         return ResponseEntity.notFound().build();
     }
 
-    public ResponseEntity<PlaylistDto> setDefaultplaylist(long playlistId) {
+    public ResponseEntity<PlaylistDto> setDefaultPlaylist(long playlistId) {
         for (Playlist playlist : playlistRepository.findAll()) {
             if (playlist.isDefault()) {
                 playlist.setDefault(false);

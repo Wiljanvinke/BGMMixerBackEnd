@@ -63,7 +63,7 @@ public class PlaylistEndpoint {
     @PutMapping("/{playlistId}/default")
     private ResponseEntity<PlaylistDto> updatePlaylistDefault(@PathVariable long playlistId){
         System.out.println("PUT default Playlist " + playlistId);
-        return songService.setDefaultplaylist(playlistId);
+        return songService.setDefaultPlaylist(playlistId);
     }
 
     @DeleteMapping("/{playlistId}")
