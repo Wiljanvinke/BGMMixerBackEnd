@@ -232,6 +232,6 @@ public class SongService {
                 .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
         playlist.addSong(songRepository.findById(songId)
                 .orElseThrow(() -> new SongNotFoundException(songId)));
-        return ResponseEntity.ok(new PlaylistDto(playlist));
+        return ResponseEntity.ok(new PlaylistDto(playlistRepository.save(playlist)));
     }
 }
