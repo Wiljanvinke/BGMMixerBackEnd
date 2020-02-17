@@ -34,9 +34,9 @@ public class StageEndpoint {
     }
 
     @PutMapping("/{stageId}")
-    public ResponseEntity<StageDto> updateStage(@PathVariable long stageId, @RequestBody Stage stage){
+    public ResponseEntity<StageDto> updateStage(@PathVariable long stageId, @RequestBody StageDto stageDto){
         System.out.println("Put Stage " + stageId);
-        return songService.updateStage(stage, stageId);
+        return songService.updateStage(stageDto, stageId);
     }
 
     @DeleteMapping("/{stageId}")
