@@ -106,7 +106,7 @@ public class SongService {
         }
     }
 
-    public ResponseEntity<StageDto> updateStage(Stage newStage, long stageId) {
+    public ResponseEntity<StageDto> updateStage(StageDto newStage, long stageId) {
         Stage stage = stageRepository.findById(stageId)
                 .orElseThrow(() -> new StageNotFoundException("Stage not found with id: " + stageId));
         MyUtils.copyProperties(newStage, stage);
