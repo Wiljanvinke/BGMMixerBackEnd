@@ -65,4 +65,15 @@ public class Stage {
     public void setSong(Song song) {
         this.song = song;
     }
+
+    @Override
+    public String toString() {
+        return "Stage{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", song=" + song +
+                '}';
+    }
 }
