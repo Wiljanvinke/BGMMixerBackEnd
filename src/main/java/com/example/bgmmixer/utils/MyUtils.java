@@ -17,6 +17,10 @@ public abstract class MyUtils {
     }
 
     public static void copyProperties(Object src, Object target) {
-        BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
+        String[] nullPropertyNames = getNullPropertyNames(src);
+        BeanUtils.copyProperties(src, target, nullPropertyNames);
+        for (String name: nullPropertyNames){
+            System.out.println("Ignore copying: " + name);
+        }
     }
 }
