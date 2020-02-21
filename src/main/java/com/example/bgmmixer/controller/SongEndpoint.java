@@ -17,7 +17,7 @@ public class SongEndpoint {
 
     /**
      * Get a single Song with corresponding Id in Dtoformat
-     * @param songId Id to match a Playlist to
+     * @param songId Id to match a Song to
      * @return Song in Dtoformat
      */
     @GetMapping("/{songId}")
