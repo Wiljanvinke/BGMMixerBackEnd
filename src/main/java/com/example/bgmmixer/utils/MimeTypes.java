@@ -435,7 +435,9 @@ public class MimeTypes {
     }
 
     /**
-     * Registers MIME type for provided extension. Existing extension type will be overriden.
+     * Registers MIME type for provided extension. Existing extension type will be overridden.
+     * @param ext extension in text
+     * @param mimeType Mimetype
      */
     public static void registerMimeType(String ext, String mimeType) {
         mimeTypeMapping.put(ext, mimeType);
