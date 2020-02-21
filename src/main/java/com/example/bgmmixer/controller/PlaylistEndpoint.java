@@ -2,7 +2,6 @@ package com.example.bgmmixer.controller;
 
 import com.example.bgmmixer.dtos.PlaylistDto;
 import com.example.bgmmixer.dtos.SongDto;
-import com.example.bgmmixer.model.Playlist;
 import com.example.bgmmixer.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
