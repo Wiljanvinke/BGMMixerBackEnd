@@ -57,6 +57,7 @@ public class SongEndpoint {
 
     /**
      * Update the Song with corresponding Id to include the values included in the body
+     * @param songDto body containing the new values of the Song
      * @param songId body of the request containing the new values of the Song
      * @return ResponseEntity containing the newly updated Song in Dtoformat
      */
@@ -68,7 +69,6 @@ public class SongEndpoint {
     /**
      * Delete the Song with the corresponding Id
      * @param songId Id of the song to delete
-     * @return ResponseEntity containing the deleted Song in DtoFormat
      */
     @DeleteMapping("/{songID}")
     public void deleteSong(@PathVariable long songId){
