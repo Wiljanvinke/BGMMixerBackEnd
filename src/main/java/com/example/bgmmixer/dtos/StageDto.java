@@ -10,6 +10,10 @@ public class StageDto {
     private double endTime;
     private long songId;
 
+    public StageDto(){
+
+    }
+
     public StageDto(Stage stage) {
         this.id = stage.getId();
         this.name = stage.getName();
@@ -58,5 +62,16 @@ public class StageDto {
 
     public void setSongId(long songId) {
         this.songId = songId;
+    }
+
+    @Override
+    public String toString() {
+        return "StageDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", songId=" + songId +
+                '}';
     }
 }

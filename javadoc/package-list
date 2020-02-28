@@ -1,0 +1,10 @@
+com.example.bgmmixer
+com.example.bgmmixer.config
+com.example.bgmmixer.controller
+com.example.bgmmixer.dtos
+com.example.bgmmixer.exceptions
+com.example.bgmmixer.model
+com.example.bgmmixer.payload
+com.example.bgmmixer.repositories
+com.example.bgmmixer.service
+com.example.bgmmixer.utils

@@ -21,16 +21,30 @@ public class FileEndpoint {
     @Autowired
     private FileService fileService;
 
+    /**
+     * Get all Files in the database
+     * @return an Iterable of all Files in Dtoformat
+     */
     @GetMapping("/files")
     public Iterable<FileDto> getFiles(){
         return fileService.getAllFiles();
     }
 
+    /**
+     * Get a single File with corresponding Id in Dtoformat
+     * @param fileId Id to match a File to
+     * @return File in Dtoformat
+     */
     @GetMapping("/files/{fileId}")
     public FileDto getFileDto(@PathVariable long fileId){
         return fileService.getFileDto(fileId);
     }
 
+    /**
+     * Get a single, complete File corresponding to Id
+     * @param fileId Id to match a File to
+     * @return a ResponseEntity containing the complete File
+     */
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable long fileId) {
         // Load file from database
@@ -42,6 +56,11 @@ public class FileEndpoint {
                 .body(new ByteArrayResource(file.getData()));
     }
 
+    /**
+     * Post a new File to the database
+     * @param file File to be uploaded to the database
+     * @return response containing id, filename, uri, filetype, and size
+     */
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
         System.out.println("Received");
