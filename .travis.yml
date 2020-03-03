@@ -4,6 +4,8 @@ addons:
   mariadb: '10.4'
 before_install:
   - chmod +x mvnw
+  - mysql -e 'create database bgmmixer;'
+  - mysql -e 'grant all on *.* to travis@localhost;' || true
 jdk:
   - oraclejdk8
 script:
